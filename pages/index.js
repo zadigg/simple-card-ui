@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Cssbattle from "../components/Cssbattle";
 import FlexGrow from "../components/FlexGrow";
 import Upwork from "../components/Upwork";
 
@@ -14,8 +15,9 @@ export default function Home() {
       </Head>
 
       <main>
-        <Upwork />
+        {/* <Upwork /> */}
         {/* <FlexGrow /> */}
+        <Cssbattle />
       </main>
     </div>
   );
