@@ -6,7 +6,7 @@ function Sharingan() {
       <div className="w-60 h-60 bg-[#dd6b4d] rounded-full shadow-nprogress ">
         <div></div>
         <div>
-          
+          hi
         </div>
       </div>
     </div>
