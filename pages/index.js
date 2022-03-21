@@ -20,6 +20,7 @@ export default function Home() {
         {/* <FlexGrow /> */}
         {/* <Cssbattle /> */}
         <Sharingan className="" />
+        hi
       </main>
     </div>
   );
