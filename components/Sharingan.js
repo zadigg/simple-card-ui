@@ -2,13 +2,9 @@ import React from "react";
 
 function Sharingan() {
   return (
-    <div className="flex h-screen items-center justify-center bg-black  ">
-      <div className="w-60 h-60 bg-[#dd6b4d] rounded-full shadow-nprogress ">
-        <div></div>
-        <div>
-          hi
-        </div>
-      </div>
+    <div className="h-screen bg-slate-800 p-14 grid grid-cols-2">
+      <div className="">hello</div>
+      <div>hello</div>
     </div>
   );
 }
