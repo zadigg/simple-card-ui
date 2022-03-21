@@ -23,5 +23,5 @@ export default function Home() {
         hi
       </main>
     </div>
-  );S
+  );
 }
