@@ -19,7 +19,7 @@ export default function Home() {
         {/* <Upwork /> */}
         {/* <FlexGrow /> */}
         {/* <Cssbattle /> */}
-        <Sharingan />
+        <Sharingan className="" />
       </main>
     </div>
   );
