@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Cssbattle from "../components/Cssbattle";
 import FlexGrow from "../components/FlexGrow";
-import Sharingan from "../components/Sharingan";
+import Contact from "../components/Contact";
 import Upwork from "../components/Upwork";
 
 import styles from "../styles/Home.module.css";
@@ -19,9 +19,8 @@ export default function Home() {
         {/* <Upwork /> */}
         {/* <FlexGrow /> */}
         {/* <Cssbattle /> */}
-        <Sharingan className="" />
-        hi
+        <Contact className="" />
       </main>
     </div>
-  );S
+  );
 }
