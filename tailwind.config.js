@@ -12,5 +12,5 @@ module.exports = {
       fontFamily: { arial: ["Arial Rounded MT Bold", "sans-serif"] },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };

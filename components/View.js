@@ -1,28 +1,29 @@
 import React from "react";
 import { PhoneIcon, DotsVerticalIcon } from "@heroicons/react/solid";
 import { useState, useEffect } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import db from "../firebase/firebase";
 function View() {
   const [contacts, setContact] = useState();
 
   console.log(contacts);
 
-  useEffect(
-    () =>
-      onSnapshot(collection(db, "contacts"), (snapshot) =>
-        setContact(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-      ),
-    []
-  );
-  asd
+  useEffect(() => {
+    const collectionRef = collection(db, "contacts");
+    const q = query(collectionRef, orderBy("timestamp", "desc"));
+
+    const unsub = onSnapshot(q, (snapshot) =>
+      setContact(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    );
+    return unsub;
+  }, []);
 
   return (
     <div className="bg-white flex-grow rounded-2xl p-10">
       <div className=" text-3xl font-arial font-bold text-gray-700">
         Contact
       </div>
-      <div className="bg-gray-100 h-full shadow-2xl p-2 pt-4 ">
+      <div className="bg-gray-100 h-[340px] lg:h-full shadow-2xl p-2 pt-4 overflow-scroll scrollbar-hide ">
         {/*  */}
         {contacts?.map((contact) => (
           <div key={contact.id} className="flex items-center">
@@ -32,6 +33,7 @@ function View() {
             <div className="flex-grow pl-5">
               <div className="text-2xl font-bold text-gray-600">
                 <h1>
+                  {contact.id}
                   {contact.fname} {contact.lname}
                 </h1>
               </div>
@@ -47,7 +49,9 @@ function View() {
             <div className="hidden lg:flex items-center">
               <div>
                 <button className="py-2 px-16 bg-blue-400 rounded-lg">
-                  Call
+                  <a href={"tel:" + contact.phone}>Call</a>
+
+                  {/* `tel: contact.phone` */}
                 </button>
               </div>
               <div>
