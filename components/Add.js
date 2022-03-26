@@ -22,7 +22,7 @@ function Add() {
   const [id, setId] = useState();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState([]);
   const [contacts, setContact] = useState("");
   const [updateMerge, setUpdateMerge] = useState("");
 
@@ -39,29 +39,35 @@ function Add() {
   //     alert("Contact already exists");
   //   }
   // });
-  var checkIfContactExist = "false";
+  // co checkIfContactExist = "false";
 
-  var check = false;
-  function myFunction() {
-    check = true;
-  }
-  myFunction();
+  // var check = false;
+  // function myFunction() {
+  //   check = true;
+  // }
+  // myFunction();
   // console.log(check);
 
   function handleNew() {
+    let check2 = false;
     for (const contact of contacts) {
       const trimmedFirstName = firstName.trim();
       const trimmedLastName = lastName.trim();
+      console.log(contact.fname);
+      console.log(contact.lname);
       if (
-        contact.fname.trim() === trimmedFirstName &&
-        contact.lname.trim() === trimmedLastName
+        trimmedFirstName != "" &&
+        trimmedLastName != "" &&
+        contact.fname?.trim() == trimmedFirstName &&
+        contact.lname?.trim() == trimmedLastName
       ) {
+        // alert("Contact already exists");
         // checkIfContactExist = "true";
-        return true;
-      } else {
-        return false;
+        check2 = true;
+        break;
       }
     }
+    return check2;
   }
 
   // console.log(handleNew());
@@ -76,7 +82,7 @@ function Add() {
       const payload = {
         fname: firstName,
         lname: lastName,
-        phone: phone,
+        phones: [phone],
         timestamp: serverTimestamp(),
       };
 
@@ -90,15 +96,44 @@ function Add() {
     }
 
     if (updateMerge === "update") {
-      const collectionRef = collection(db, "contacts");
-      const qu = query(
-        collectionRef,
+      const q = query(
+        collection(db, "contacts"),
         where("fname", "==", firstName, "lname", "==", lastName)
       );
-
-      const payload = { phone: phone };
-      setDoc(qu, payload);
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        const payload = {
+          fname: firstName,
+          lname: lastName,
+          phones: [phone],
+          timestamp: serverTimestamp(),
+        };
+        setDoc(doc.ref, payload);
+      });
     } else if (updateMerge === "merge") {
+      var dbPhone = 123;
+      for (const contact of contacts) {
+        if (contact.fname == firstName && contact.lname == lastName) {
+          dbPhone = contact.phones;
+        }
+      }
+
+      const q = query(
+        collection(db, "contacts"),
+        where("fname", "==", firstName, "lname", "==", lastName)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data(), " =>", dbPhone);
+        const payload = {
+          fname: firstName,
+          lname: lastName,
+          phones: [...dbPhone, phone],
+          timestamp: serverTimestamp(),
+        };
+        setDoc(doc.ref, payload);
+      });
     }
   };
   // console.log(handleNew());

@@ -18,6 +18,21 @@ function View() {
     return unsub;
   }, []);
 
+  function phoneLoop(phones = []) {
+    const result = phones.map((phone) => (
+      <div key={phone} className="flex items-center justify-between">
+        <div className="flex items-center">{phone}</div>
+      </div>
+    ));
+    return result;
+    // var phoneList = " ";
+    // var phon = phones.join(", ");
+    // console.log(phon);
+    // for (var i = 0; i < phones.length; i++) {
+    //   phoneList += "phone " + i + ":" + phones[i] + "\n";
+    // }
+    // return phoneList;
+  }
   return (
     <div className="bg-white flex-grow rounded-2xl p-10">
       <div className=" text-3xl font-arial font-bold text-gray-700">
@@ -33,13 +48,14 @@ function View() {
             <div className="flex-grow pl-5">
               <div className="text-2xl font-bold text-gray-600">
                 <h1>
-                  {contact.id}
+                  {/* {contact.id} */}
                   {contact.fname} {contact.lname}
                 </h1>
               </div>
               <div className="text-md text-gray-500">
                 <h1>
-                  {contact.phone}{" "}
+                  {phoneLoop(contact.phones)}
+
                   <span className="hidden lg:inline-block">
                     Last call on 8:02AM
                   </span>
