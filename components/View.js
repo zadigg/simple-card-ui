@@ -20,8 +20,8 @@ function View() {
 
   function phoneLoop(phones = []) {
     const result = phones.map((phone) => (
-      <div key={phone} className="flex items-center justify-between">
-        <div className="flex items-center">{phone}</div>
+      <div key={phone} className="flex ">
+        {phone}
       </div>
     ));
     return result;
